@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <title>Founder Mode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Iosevka/6.0.0/iosevka/iosevka.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --background: #ffffff;
+            --primary: #000000;
+            --secondary: #1f2937;
+            --anchors: #1e40af;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #000000;
+                --primary: #ffffff;
+                --anchors: #60a5fa;
+                --secondary: #d1d5db;
+            }
+        }
+
+        * {
+            font-family: "Iosevka Web";
+            font-size: small;
+            text-align: justify;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--primary);
+            width: calc(11 / 12 * 100%);
+            margin: auto;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                width: calc(6 / 12 * 100%);
+            }
+        }
+
+        a {
+            color: var(--anchors);
+        }
+
+        .secondary {
+            color: var(--secondary);
+        }
+
+        p {
+            margin: 14px 0 0 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom-width: 2px;
+            border-bottom-style: dashed;
+            border-bottom-color: var(--secondary);
+        }
+
+        header span {
+            display: flex;
+            gap: 6px;
+            align-items: baseline;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25rem;
+        }
+
+        dish {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span style="display: flex; align-items: baseline; gap: 6px">
+            <h1>Korean Fried Chicken</h1>
+            <a style="font-size: smaller"
+                href="https://guardsquare.slack.com/archives/C04SQ3XMP0T/p1724830531245329">[original]</a>
+        </span>
+        <date class="secondary">September 2024</date>
+    </header>
+    <p>
+        KFC := Korean Fried Chicken
+    </p>
+    <div class="item">
+        <div>
+            <span class="dish">Bukchon Bites</span>
+            <span>Korean Fried Chicken</span>
+        </div>
+        8.5
+    </div>
+</body>
+
+</html>
