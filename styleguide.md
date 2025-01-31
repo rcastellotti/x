@@ -1,3 +1,3 @@
-1. be gay  
-1.5. [OPTIONAL] have good fucking taste
-3. do crime
+1) be gay  
+3) OPTIONAL have good fucking taste
+2) do crime
