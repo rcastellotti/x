@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strength Workout Plan</title>
+    <style>
+      :root {
+        --primary: #3498db;
+        --dark: #2c3e50;
+        --light: #ecf0f1;
+        --success: #2ecc71;
+        --warning: #f39c12;
+        --danger: #e74c3c;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+          "Helvetica Neue", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        color: var(--dark);
+      }
+
+      .tabs {
+        display: flex;
+        border-bottom: 2px solid var(--primary);
+        margin-bottom: 20px;
+      }
+
+      .tab-btn {
+        padding: 10px 20px;
+        border: none;
+        background: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 5px 5px 0 0;
+      }
+
+      .tab-btn.active {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .exercise-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .exercise-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+      }
+
+      .exercise-title {
+        font-weight: bold;
+        font-size: 18px;
+        margin: 0;
+      }
+
+      .exercise-meta {
+        color: #666;
+        font-size: 16px;
+      }
+
+      .muscles {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 10px;
+      }
+
+      .muscle-tag {
+        background-color: var(--light);
+        border-radius: 15px;
+        padding: 3px 10px;
+        font-size: 12px;
+        color: var(--dark);
+      }
+
+      .program-info {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 600px) {
+        .tabs {
+          flex-direction: column;
+        }
+        .tab-btn {
+          border-radius: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- Include Preact and HTM -->
+    <script type="module">
+      // Initialize Preact and HTM
+      import { h, render, Component } from "https://esm.sh/preact";
+      import { useState, useEffect } from "https://esm.sh/preact/hooks";
+      import htm from "https://esm.sh/htm";
+
+      const html = htm.bind(h);
+
+      // Workout data
+      const workoutData = {
+        program: "Full-Body Strength Program",
+        frequency: "3 days/week",
+        progression: "Add 2.5kg when you can complete all sets/reps with good form",
+        rest_periods: {
+          main_lifts: "2-3 minutes",
+          accessory_work: "60-90 seconds",
+        },
+        workouts: [
+          {
+            name: "Workout A",
+            exercises: [
+              {
+                name: "Barbell Back Squat",
+                sets: "3-4",
+                reps: "6-8",
+                muscles: ["Quadriceps", "Glutes", "Hamstrings", "Core", "Lower Back"],
+              },
+              {
+                name: "Bench Press",
+                sets: "3-4",
+                reps: "6-8",
+                muscles: ["Chest", "Triceps", "Front Deltoids"],
+              },
+              {
+                name: "Barbell Row",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Upper Back", "Lats", "Rear Deltoids", "Biceps"],
+              },
+              {
+                name: "Overhead Press",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Shoulders (Deltoids)", "Triceps", "Upper Chest", "Core"],
+              },
+              {
+                name: "Romanian Deadlift",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Hamstrings", "Glutes", "Lower Back", "Core"],
+              },
+              {
+                name: "Face Pulls or Band Pull-Aparts",
+                sets: "3",
+                reps: "12-15",
+                muscles: ["Rear Deltoids", "Rotator Cuff", "Upper Back"],
+              },
+            ],
+          },
+          {
+            name: "Workout B",
+            exercises: [
+              {
+                name: "Deadlift",
+                sets: "3-4",
+                reps: "5-6",
+                muscles: ["Lower Back", "Glutes", "Hamstrings", "Traps", "Forearms", "Core"],
+              },
+              {
+                name: "Incline Bench Press",
+                sets: "3-4",
+                reps: "8-10",
+                muscles: ["Upper Chest", "Triceps", "Front Deltoids"],
+              },
+              {
+                name: "Front Squat or Goblet Squat",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Quadriceps", "Core", "Upper Back", "Glutes"],
+              },
+              {
+                name: "Pull-ups/Chin-ups (or Lat Pulldowns)",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Lats", "Biceps", "Middle Back", "Forearms"],
+              },
+              {
+                name: "Dips (or Close-grip Bench)",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Triceps", "Chest", "Front Deltoids"],
+              },
+              {
+                name: "Cable/Dumbbell Lateral Raises",
+                sets: "3",
+                reps: "12-15",
+                muscles: ["Side Deltoids (Shoulders)"],
+              },
+            ],
+          },
+          {
+            name: "Workout C",
+            exercises: [
+              {
+                name: "Barbell Back Squat",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Quadriceps", "Glutes", "Hamstrings", "Core", "Lower Back"],
+              },
+              {
+                name: "Overhead Press",
+                sets: "3-4",
+                reps: "6-8",
+                muscles: ["Shoulders (Deltoids)", "Triceps", "Upper Chest", "Core"],
+              },
+              {
+                name: "Bench Press",
+                sets: "3",
+                reps: "8-10",
+                muscles: ["Chest", "Triceps", "Front Deltoids"],
+              },
+              {
+                name: "Barbell Row or Cable Row",
+                sets: "3-4",
+                reps: "8-10",
+                muscles: ["Upper Back", "Lats", "Rear Deltoids", "Biceps"],
+              },
+              {
+                name: "Bulgarian Split Squats",
+                sets: "3",
+                reps: "8-10 per leg",
+                muscles: ["Quadriceps", "Glutes", "Hamstrings", "Core", "Balance"],
+              },
+              {
+                name: "Bicep Curls + Tricep Extensions (superset)",
+                sets: "2-3",
+                reps: "10-12",
+                muscles: ["Biceps", "Triceps"],
+              },
+            ],
+          },
+        ],
+      };
+
+      // Exercise component
+      const Exercise = ({ exercise }) => {
+        return html`
+          <div class="exercise-card">
+            <div class="exercise-header">
+              <h3 class="exercise-title">${exercise.name}</h3>
+              <span class="exercise-meta">${exercise.sets} sets × ${exercise.reps} reps</span>
+            </div>
+            <div class="muscles">
+              ${exercise.muscles.map((muscle) => html`<span class="muscle-tag">${muscle}</span>`)}
+            </div>
+          </div>
+        `;
+      };
+
+      // Program Info component
+      const ProgramInfo = ({ data }) => {
+        return html`
+          <div class="program-info">
+            <h2>Program Details</h2>
+            <p><strong>Program:</strong> ${data.program}</p>
+            <p><strong>Frequency:</strong> ${data.frequency}</p>
+            <p><strong>Progression:</strong> ${data.progression}</p>
+            <p><strong>Rest Periods:</strong></p>
+            <ul>
+              <li>Main lifts: ${data.rest_periods.main_lifts}</li>
+              <li>Accessory work: ${data.rest_periods.accessory_work}</li>
+            </ul>
+          </div>
+        `;
+      };
+
+      // App component
+      const App = () => {
+        const [activeTab, setActiveTab] = useState(0);
+
+        const switchTab = (index) => {
+          setActiveTab(index);
+        };
+
+        return html`
+          <div class="workout-app">
+            <header>
+              <h1>Strength Workout Plan</h1>
+              <p>A comprehensive 3-day full-body program</p>
+            </header>
+
+            <${ProgramInfo} data=${workoutData} />
+
+            <div class="tabs">
+              ${workoutData.workouts.map(
+                (workout, index) => html`
+                  <button class=${`tab-btn ${activeTab === index ? "active" : ""}`} onClick=${() => switchTab(index)}>
+                    ${workout.name}
+                  </button>
+                `
+              )}
+            </div>
+
+            ${workoutData.workouts.map(
+              (workout, index) => html`
+                <div class=${`tab-content ${activeTab === index ? "active" : ""}`}>
+                  <h2>${workout.name}</h2>
+                  ${workout.exercises.map((exercise) => html`<${Exercise} exercise=${exercise} />`)}
+                </div>
+              `
+            )}
+          </div>
+        `;
+      };
+
+      // Render the app
+      render(html`<${App} />`, document.getElementById("app"));
+    </script>
+  </body>
+</html>
